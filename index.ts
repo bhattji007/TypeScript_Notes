@@ -147,20 +147,130 @@
 // once we declare them as a type, as the matter of fact they can be exported and imported anywhere in the project .
 
 
-type Point = {
-    x: number;
-    y: number;
-  };
+// type Point = {
+//     x: number;
+//     y: number;
+//   };
    
-  // Exactly the same as the earlier example
-  function printCoord(pt: Point) {
-    console.log("The coordinate's x value is " + pt.x);
-    console.log("The coordinate's y value is " + pt.y);
-  }
+//   // Exactly the same as the earlier example
+//   function printCoord(pt: Point) {
+//     console.log("The coordinate's x value is " + pt.x);
+//     console.log("The coordinate's y value is " + pt.y);
+//   }
    
-  printCoord({ x: 100, y: 100 });
+//   printCoord({ x: 100, y: 100 });
+
+
+// Interfaces
+
+
+// An interface declaration is another way to name an object type:
+// interface Point {
+//     x: number;
+//     y: number;
+//   }
+   
+//   function printCoord(pt: Point) {
+//     console.log("The coordinate's x value is " + pt.x);
+//     console.log("The coordinate's y value is " + pt.y);
+//   }
+   
+//   printCoord({ x: 100, y: 100 });
+
+// Just like when we used a type alias above, the example works just as if we had used an anonymous object type.
+//  TypeScript is only concerned with the structure of the value we passed to printCoord - it only cares that it has the expected properties. 
+// Being concerned only with the structure and capabilities of types is why we call TypeScript a structurally typed type system.
+
+
+// Differences Between Type Aliases and Interfaces
+
+// Type aliases and interfaces are very similar, and in many cases you can choose between them freely. 
+// Almost all features of an interface are available in type,
+// the key distinction is that a type cannot be re-opened to add new properties vs an interface which is always extendable.
+
+// For Example extending an Interface would look like :-
+
+// interface Animal {
+//     name: string;
+//   }
+  
+//   interface Bear extends Animal {
+//     honey: boolean;
+//   }
+  
+// function getBear(){
+//     return{name:"name",honey : true} ;
+// }
+
+//   const bear = getBear();
+//   bear.name;
+//   bear.honey;
+//   console.log(bear.name)
 
 
 
+
+// And extending the type via intersection  would look like this
+
+// type Animal = {
+//     name: string;
+//   }
+  
+//   type Bear = Animal & { 
+//     honey: boolean;
+//   }
+//   function getBear(){
+//     return{name:"name",honey : true} ;
+//   }
+//   const bear = getBear();
+//   bear.name;
+//   bear.honey;
+
+
+// Type Assertions
+
+
+// Sometimes you will have information about the type of a value that TypeScript can’t know about.
+
+// For example, if you’re using document.getElementById, 
+// TypeScript only knows that this will return some kind of HTMLElement,
+//  but you might know that your page will always have an HTMLCanvasElement with a given ID.
+
+// const myCanvas = document.getElementById("main_canvas") as HTMLCanvasElement;
+
+
+
+// Literal Types
+
+// One way to think about this is to consider how JavaScript comes with different ways to declare a variable. 
+// Both var and let allow for changing what is held inside the variable, and const does not.
+//  This is reflected in how TypeScript creates types for literals.
+
+// let changingString = "Hello World";
+// changingString = "Olá Mundo";
+// // Because `changingString` can represent any possible string, that
+// // is how TypeScript describes it in the type system
+// changingString;
+      
+// let changingString: string
+ 
+// const constantString = "Hello World";
+// // Because `constantString` can only represent 1 possible string, it
+// // has a literal type representation
+// constantString;
+      
+// const constantString: "Hello World"
+
+
+
+// IMPORTANT
+//combining literals into unions, you can express a much more useful concept - for example,
+//  functions that only accept a certain set of known values:
+
+// function printText(s: string, alignment: "left" | "right" | "center") {
+//     // ...
+//   }
+//   printText("Hello, world", "left"); //Accepted
+//   printText("G'day, mate", "centre"); //Not Accepted "center vs centre"
 
 
