@@ -274,3 +274,60 @@
 //   printText("G'day, mate", "centre"); //Not Accepted "center vs centre"
 
 
+// # Narrowing 
+
+
+// Imagine we have a function called padLeft.
+
+// function padLeft(padding: number | string, input: string): string {
+//   throw new Error("Not implemented yet!");
+// }
+
+
+// If padding is a number, it will treat that as the number of spaces we want to prepend to input. 
+// If padding is a string, it should just prepend padding to input.
+//  Let’s try to implement the logic for when padLeft is passed a number for padding.
+
+
+
+// function padLeft(padding: number | string, input: string) {
+//   return " ".repeat(padding) + input;    // ERROR:Argument of type 'string | number' is not assignable to parameter of type 'number'.
+// }
+
+
+
+/**Uh-oh, we’re getting an error on padding.
+ *  TypeScript is warning us that we’re passing a value with type number | string to the repeat function,
+ *  which only accepts a number, and it’s right.
+ *  In other words, we haven’t explicitly checked if padding is a number first,
+ *  nor are we handling the case where it’s a string, so let’s do exactly that.
+*/
+
+
+// function padLeft(padding: number | string, input: string) {
+//   if (typeof padding === "number") {
+//     return " ".repeat(padding) + input;
+//   }
+//   return padding + input;
+// }
+
+// NO ERROR
+
+/**
+ * In TypeScript, checking against the value returned by typeof is a type guard.
+ *  Because TypeScript encodes how typeof operates on different values, 
+ * it knows about some of its quirks in JavaScript.
+ *  Check out the following example:
+ */
+
+function printAll(strs: string | string[] | null) {
+  if (typeof strs === "object") {
+    for (const s of strs) {    // ERROR : strs is possibly null
+      console.log(s);
+    }
+  } else if (typeof strs === "string") {
+    console.log(strs);
+  } else {
+    // do nothing
+  }
+}
