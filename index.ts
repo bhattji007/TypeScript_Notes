@@ -3,7 +3,7 @@
 // The only job of TS is to analyze the code as we type it .
 // DEVELOPMENT PROCESS
 // TypeScript code is transpiled to JavaScript Code 
-
+l
 
 // INTRO
 
